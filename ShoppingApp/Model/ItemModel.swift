@@ -12,9 +12,9 @@ class ItemsModel {
     var weight: String = ""
     var category: String = ""
     var shopName: String = ""
-    var price: String = ""
+    var price: Double = 0
     
-    init(id: Int, itemName: String, weight: String, category: String, shopName: String, price: String) {
+    init(id: Int, itemName: String, weight: String, category: String, shopName: String, price: Double) {
         self.id = id
         self.itemName = itemName
         self.weight = weight
