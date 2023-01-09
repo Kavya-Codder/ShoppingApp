@@ -53,6 +53,7 @@ class ExpensesVC
         super.viewDidLoad()
         initialSetUp()
         
+        // set update text
         txtItemName.text = obj?.itemName
         txtCagegory.text = obj?.category
         txtWeight.text = obj?.weight
@@ -87,7 +88,7 @@ class ExpensesVC
                     self.navigationController?.popViewController(animated: true)
                 }
             } else {
-                dbHelperObj.insertData(itenList: ItemsModel(id: Int.random(in: 0..<6), itemName: txtItemName.text ?? "", weight: txtWeight.text ?? "", category: txtCagegory.text ?? "", shopName: txtShop.text ?? "", price: Double(txtTotalPrice.text ?? "0") ?? 0)) { (msg) in
+                dbHelperObj.insertData(itemList: ItemsModel(id: Int.random(in: 0..<6), itemName: txtItemName.text ?? "", weight: txtWeight.text ?? "", category: txtCagegory.text ?? "", shopName: txtShop.text ?? "", price: Double(txtTotalPrice.text ?? "") ?? 0)) { (msg) in
                     print(self.dbHelperObj.featchItemList())
                     
                     DispatchQueue.main.async {

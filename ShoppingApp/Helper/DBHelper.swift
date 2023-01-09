@@ -50,16 +50,16 @@ class DBHelper {
         sqlite3_finalize(createTableStatement)
     }
     
-    func insertData(itenList: ItemsModel, completion: @escaping (String) -> Void) {
+    func insertData(itemList: ItemsModel, completion: @escaping (String) -> Void) {
         let insertQuary = "INSERT INTO itemList(id,itemName,weight,category,shopName,price) VALUES(?,?,?,?,?,?);"
         var insertStatement: OpaquePointer?
         if sqlite3_prepare_v2(database, insertQuary, -1, &insertStatement, nil) == SQLITE_OK {
-            sqlite3_bind_int(insertStatement, 1, Int32(itenList.id))
-            sqlite3_bind_text(insertStatement, 2, (itenList.itemName as NSString).utf8String, -1, nil)
-            sqlite3_bind_text(insertStatement, 3, (itenList.weight as NSString).utf8String, -1, nil)
-            sqlite3_bind_text(insertStatement, 4, (itenList.category as NSString).utf8String, -1, nil)
-            sqlite3_bind_text(insertStatement, 5, (itenList.shopName as NSString).utf8String, -1, nil)
-            sqlite3_bind_double(insertStatement, 6, (itenList.price))
+            sqlite3_bind_int(insertStatement, 1, Int32(itemList.id))
+            sqlite3_bind_text(insertStatement, 2, (itemList.itemName as NSString).utf8String, -1, nil)
+            sqlite3_bind_text(insertStatement, 3, (itemList.weight as NSString).utf8String, -1, nil)
+            sqlite3_bind_text(insertStatement, 4, (itemList.category as NSString).utf8String, -1, nil)
+            sqlite3_bind_text(insertStatement, 5, (itemList.shopName as NSString).utf8String, -1, nil)
+            sqlite3_bind_double(insertStatement, 6, (itemList.price))
             if sqlite3_step(insertStatement) == SQLITE_OK {
                 completion("data inserted successfully")
                 print("data inserted successfully.")
@@ -125,7 +125,7 @@ class DBHelper {
     
     func updateItem(itemId: Int32, itemName: String, category: String, weight: String, price: Double, shopName: String)
     {
-        let updateQuary = "UPDATE itemList SET itemName = \(itemName), weight = \(weight), category = \(category), shopName = \(shopName), price = \(price) WHER id = \(itemId);"
+        let updateQuary = "UPDATE itemList SET itemName = '\(itemName)', weight = '\(weight)', category = '\(category)', shopName = '\(shopName)', price = \(price) WHERE id = \(itemId);"
         var updateQuaryStatement: OpaquePointer? = nil
         if sqlite3_prepare_v2(database, updateQuary, -1, &updateQuaryStatement, nil) == SQLITE_OK
         {
